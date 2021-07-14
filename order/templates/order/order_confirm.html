@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 offset-3 text-center">
+            <form action="{% url 'order:confirm-order' %}" method="post">
+                <table cellpadding=5 class="table">
+                    {% csrf_token %}
+                    {{ form.as_table }}
+                </table>
+                <div class="d-grid">
+                    <button class="btn btn-primary" type="submit">Confirm and continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 offset-3 text-center">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item display-6">Summary</li>
+                <hr>
+                {% for label, val in data %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <h5>{{ label }}</h5>
+                    <span class="">{{ val }}</span>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-grid">
+                    <a href="{% url 'product:home' %}" class="btn btn-success">Place order</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}
