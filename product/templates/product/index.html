@@ -14,7 +14,7 @@
                             </p>
                             <div class="d-flex justify-content-between">
                                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                <a href="{% url 'cart:add-cart' food=product.slug %}" class="text-decoration-none text-center fw-bold">Add to cart</a>
+                                <a href="{% url 'cart:add-cart' slug=product.slug %}" class="text-decoration-none text-center fw-bold">Add to cart</a>
                             </div>
                         </div>
                     </div>

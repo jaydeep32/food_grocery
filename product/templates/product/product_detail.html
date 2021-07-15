@@ -17,7 +17,7 @@
                         <p class="fs-5">${{ product.price }}</p>
                     </div>
                     <div class="text-end">
-                        <a href="{% url 'cart:add-cart' food=product.slug %}" class="text-decoration-none text-center fw-bold">- Add to cart</a>
+                        <a href="{% url 'cart:add-cart' slug=product.slug %}" class="text-decoration-none text-center fw-bold">- Add to cart</a>
                     </div>
                     <hr>
                     <p class="card-text">
