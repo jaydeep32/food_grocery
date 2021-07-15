@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import pre_save   
+from django.dispatch import receiver
+from django.utils.text import slugify
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -10,4 +13,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+@receiver(pre_save, sender=Product)
+def slug_save(sender, instance, *args, **kwargss):
+    instance.slug = slugify(instance.title)
+    
+# pre_save.connect(slug_save, sender=Product)
+
+
 
