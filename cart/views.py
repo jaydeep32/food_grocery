@@ -10,22 +10,16 @@ class AddCartView(LoginRequiredMixin, ListView):
     context_object_name = 'carts'
 
     def get_queryset(self):
-        try:
-            self.cart = Cart.objects.get(user=self.request.user, ordered=False)
-        except:
-            self.cart = None
-        queryset = self.cart.product.all()
-        return queryset
+        self.cart = Cart.objects.filter(user=self.request.user, ordered=False).first()
+        if self.cart:
+            queryset = self.cart.product.all()
+            return queryset
+        return None
 
     def get_context_data(self, *args, **kwargs):
         context =  super().get_context_data(*args, **kwargs)
-        context['gross_total'] = self.cart.gross_total
+        context['gross_total'] = self.cart.gross_total if self.cart else 0
         return context
-
-
-def add_qty(product):
-    product.qty += 1
-    return product
 
 
 def cart(request, slug):
