@@ -7,7 +7,7 @@ User = settings.AUTH_USER_MODEL
 
 class ProductInCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='products')
     qty = models.IntegerField(default=0)
     ordered = models.BooleanField(default=False)
 
