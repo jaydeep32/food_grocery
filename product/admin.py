@@ -7,6 +7,8 @@ from django import forms
 from django.db import models
 from cart.models import ProductInCart
 
+from django.contrib.auth.models import Permission
+
 
 
 # class ProductInCartInline(admin.TabularInline):
@@ -50,4 +52,4 @@ class ProductAdmin(admin.ModelAdmin):
     # list_display_links = None
     list_per_page = 15
 
-
+admin.site.register(Permission)
