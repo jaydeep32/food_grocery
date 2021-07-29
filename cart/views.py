@@ -12,7 +12,7 @@ class AddCartView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         self.cart = Cart.objects.filter(user=self.request.user, ordered=False).first()
         if self.cart:
-            queryset = self.cart.product.all()
+            queryset = self.cart.products_incart.all()
             return queryset
         return None
 
@@ -23,10 +23,25 @@ class AddCartView(LoginRequiredMixin, ListView):
 
 
 def cart(request, slug):
-    product = Product.objects.get(slug=slug)
-    product_in_cart, created = ProductInCart.objects.get_or_create(user=request.user, product=product)
-    product_in_cart.qty += 1
-    product_in_cart.save()
     cart, created = Cart.objects.get_or_create(user=request.user)
-    cart.product.add(product_in_cart)
+    product = Product.objects.get(slug=slug)
+    product_in_cart, created = ProductInCart.objects.get_or_create(cart=cart, product=product)
+    product_in_cart.qty += 1
+    product_in_cart.cart = cart
+    product_in_cart.save()
     return redirect('product:home')
+
+
+def add_remove_cart(request, pk, add=True):
+    product_in_cart = ProductInCart.objects.filter(cart__user=request.user, ordered=False, pk=pk).first()
+    if add:
+        product_in_cart.qty += 1
+        product_in_cart.save()
+    else:
+        product_in_cart.qty -= 1
+        product_in_cart.save()
+        if product_in_cart.qty < 1:
+            product_in_cart.delete()
+    return redirect('cart:cart')
+
+

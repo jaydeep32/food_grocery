@@ -7,7 +7,7 @@ from django.utils.html import format_html
 
 @admin.register(ProductInCart)
 class ProductInCartAdmin(admin.ModelAdmin):
-    list_display = ['user', 'qty', 'ordered', 'total', 'product_in', ]
+    list_display = ['cart', 'qty', 'ordered', 'total', 'product_in', ]
     list_editable = ['ordered', ]
 
     # fieldsets = (
@@ -17,9 +17,10 @@ class ProductInCartAdmin(admin.ModelAdmin):
     #     }),
     # )
 
-    radio_fields = {
-        'user': admin.VERTICAL,
-    }
+    # radio_fields = {
+    #     'user': admin.VERTICAL,
+    # }
+
     # raw_id_fields = ['user', ]
 
     def total(self, obj):
@@ -44,7 +45,7 @@ class ProductInCartAdmin(admin.ModelAdmin):
 class CartAdmin(admin.ModelAdmin):
     list_display = ['user', 'ordered', 'created_at', '__str__', ]
 
-    filter_horizontal = ['product']
+    # filter_horizontal = ['product']
     
     def make_ordered(_, request, qs):
         for cart in qs:
